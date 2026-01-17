@@ -8,7 +8,7 @@ from argparse import ArgumentParser
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from os import path, curdir
+from os import path, curdir, makedirs
 
 
 class webHandler:
@@ -128,6 +128,9 @@ class webHandler:
                 x for x in filter(lambda ep: ep[1] in episodes_to_download, episodes)
             ]
         episodes.sort(key=lambda x: x[1])
+
+        if not path.exists(save_directory):
+            makedirs(save_directory, exist_ok=True)
 
         seen_streams = set()
         for ep in episodes:
